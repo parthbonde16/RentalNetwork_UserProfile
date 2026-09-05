@@ -33,6 +33,10 @@ $sql = "SELECT name, phone, address, profile_photo
         WHERE id = ?";
 
 $stmt = $conn->prepare($sql);
+if ($stmt === false) {
+    die("Database query error: " . $conn->error);
+}
+
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 
@@ -72,6 +76,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                       WHERE id = ?";
 
         $photo_stmt = $conn->prepare($photo_sql);
+
+        if ($photo_stmt === false) {
+
+            die("Database query error: " . $conn->error);
+
+        }
+
 
         $photo_stmt->bind_param(
             "i",
@@ -160,6 +171,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 WHERE id = ?";
 
         $stmt = $conn->prepare($sql);
+
+        if ($stmt === false) {
+
+            die("Database query error: " . $conn->error);
+
+        }
+
 
         $stmt->bind_param(
             "sssi",
@@ -332,6 +350,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $conn->prepare($photo_sql);
 
 
+                    if ($photo_stmt === false) {
+
+
+                        die("Database query error: " . $conn->error);
+
+
+                    }
+
+
+
                     $photo_stmt->bind_param(
                         "si",
                         $upload_path,
@@ -383,6 +411,13 @@ $sql = "SELECT name, phone, address, profile_photo
         WHERE id = ?";
 
 $stmt = $conn->prepare($sql);
+
+if ($stmt === false) {
+
+    die("Database query error: " . $conn->error);
+
+}
+
 
 $stmt->bind_param(
     "i",

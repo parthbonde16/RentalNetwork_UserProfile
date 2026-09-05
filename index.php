@@ -14,6 +14,10 @@ $sql = "SELECT name, email, phone, address, role, profile_photo
         WHERE id = ?";
 
 $stmt = $conn->prepare($sql);
+if ($stmt === false) {
+    die("Database query error: " . $conn->error);
+}
+
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 
@@ -33,6 +37,10 @@ $sql = "SELECT item_name, rental_date, status
         ORDER BY rental_date DESC";
 
 $stmt = $conn->prepare($sql);
+if ($stmt === false) {
+    die("Database query error: " . $conn->error);
+}
+
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 
@@ -52,6 +60,10 @@ $sql = "SELECT item_name, price_per_day
         ORDER BY id DESC";
 
 $stmt = $conn->prepare($sql);
+if ($stmt === false) {
+    die("Database query error: " . $conn->error);
+}
+
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 
