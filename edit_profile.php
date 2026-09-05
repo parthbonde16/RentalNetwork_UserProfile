@@ -410,293 +410,573 @@ $current_photo = $user["profile_photo"];
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Edit Profile</title>
-
+    <title>Edit Profile | Rental Network</title>
 
     <!-- Bootstrap -->
-
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         rel="stylesheet"
     >
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #f6f8fc;
+            color: #212529;
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Arial,
+                sans-serif;
+        }
+
+        .edit-page {
+            max-width: 760px;
+            margin: 45px auto;
+        }
+
+        .top-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            color: #6c757d;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .top-link:hover {
+            color: #0d6efd;
+        }
+
+        .page-heading {
+            margin-bottom: 22px;
+        }
+
+        .page-title {
+            font-size: 30px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+        }
+
+        .page-subtitle {
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+
+        .edit-card {
+            background: #ffffff;
+            border: 1px solid #e7ebf0;
+            border-radius: 18px;
+            padding: 32px;
+            box-shadow: 0 8px 28px rgba(33, 37, 41, 0.06);
+        }
+
+        .photo-section {
+            text-align: center;
+            padding-bottom: 25px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #edf0f4;
+        }
+
+        .photo-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .profile-photo,
+        .photo-placeholder {
+            width: 145px;
+            height: 145px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-photo {
+            object-fit: cover;
+            border: 4px solid #ffffff;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.14);
+        }
+
+        .photo-placeholder {
+            background: #212529;
+            color: #ffffff;
+            font-size: 45px;
+            font-weight: 600;
+            border: 4px solid #ffffff;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.14);
+        }
+
+        .photo-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .photo-help {
+            color: #89919a;
+            font-size: 12px;
+            margin: 0;
+        }
+
+        .form-section-title {
+            font-size: 17px;
+            font-weight: 650;
+            margin-bottom: 18px;
+        }
+
+        .form-section-title i {
+            margin-right: 7px;
+            color: #495057;
+        }
+
+        .form-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #343a40;
+            margin-bottom: 7px;
+        }
+
+        .form-control {
+            min-height: 45px;
+            border: 1px solid #dfe4ea;
+            border-radius: 9px;
+            font-size: 14px;
+            padding: 10px 13px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .form-control:focus {
+            border-color: #86b7fe;
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.10);
+        }
+
+        textarea.form-control {
+            min-height: 95px;
+            resize: vertical;
+        }
+
+        .input-group-text {
+            background: #f8f9fb;
+            border: 1px solid #dfe4ea;
+            color: #6c757d;
+            border-radius: 9px 0 0 9px;
+            padding-left: 13px;
+            padding-right: 13px;
+        }
+
+        .input-group .form-control {
+            border-radius: 0 9px 9px 0;
+        }
+
+        .validation-message {
+            min-height: 19px;
+            margin-top: 6px;
+            font-size: 12px;
+        }
+
+        .validation-message .text-success {
+            color: #23834a !important;
+        }
+
+        .validation-message .text-danger {
+            color: #c0392b !important;
+        }
+
+        .photo-message {
+            min-height: 20px;
+            font-size: 12px;
+            color: #68717d;
+        }
+
+        .upload-help {
+            color: #89919a;
+            font-size: 11px;
+            margin-top: 6px;
+        }
+
+        .remove-photo-btn {
+            border-radius: 9px;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 9px 14px;
+        }
+
+        .action-area {
+            margin-top: 26px;
+            padding-top: 22px;
+            border-top: 1px solid #edf0f4;
+        }
+
+        .save-button,
+        .cancel-button {
+            min-height: 45px;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .save-button {
+            box-shadow: none;
+        }
+
+        .save-button:disabled {
+            cursor: not-allowed;
+            opacity: 0.55;
+        }
+
+        .cancel-button {
+            background: #ffffff;
+            color: #495057;
+            border: 1px solid #dfe4ea;
+        }
+
+        .cancel-button:hover {
+            background: #f8f9fb;
+            color: #212529;
+        }
+
+        .alert {
+            border-radius: 10px;
+            font-size: 13px;
+            border-width: 1px;
+        }
+
+        @media (max-width: 768px) {
+
+            .edit-page {
+                margin: 25px 15px;
+            }
+
+            .page-title {
+                font-size: 26px;
+            }
+
+            .edit-card {
+                padding: 24px 20px;
+                border-radius: 15px;
+            }
+
+            .profile-photo,
+            .photo-placeholder {
+                width: 130px;
+                height: 130px;
+            }
+
+            .action-area .btn {
+                width: 100%;
+            }
+        }
+
+    </style>
 
 </head>
 
 
 <body>
 
+<div class="container edit-page">
 
-<div class="container mt-5">
+    <!-- Back to profile -->
 
-    <div class="row justify-content-center">
+    <a href="index.php" class="top-link">
+        <i class="bi bi-arrow-left"></i>
+        Back to Profile
+    </a>
 
-        <div class="col-md-7">
 
-            <div class="card shadow">
+    <!-- Page Heading -->
 
-                <div class="card-body">
+    <div class="page-heading">
 
+        <h1 class="page-title">
+            Edit Profile
+        </h1>
 
-                    <h2 class="text-center mb-4">
-                        Edit Profile
-                    </h2>
+        <p class="page-subtitle">
+            Update your personal information and profile photo
+        </p>
 
+    </div>
 
-                    <!-- =================================================
-                         FLASH MESSAGE
-                    ================================================== -->
 
-                    <?php if ($message != ""): ?>
+    <!-- Main Card -->
 
-                        <div
-                            class="alert alert-<?php
-                            echo htmlspecialchars($message_type);
-                            ?>"
-                        >
+    <div class="edit-card">
 
-                            <?php
-                            echo htmlspecialchars($message);
-                            ?>
 
-                        </div>
+        <!-- Flash Message -->
 
-                    <?php endif; ?>
+        <?php if ($message != ""): ?>
 
+            <div class="alert alert-<?php echo htmlspecialchars($message_type); ?> mb-4">
 
-                    <!-- =================================================
-                         CURRENT PROFILE PHOTO
-                    ================================================== -->
+                <i class="bi bi-info-circle me-1"></i>
 
-                    <div class="text-center mb-4">
-
-                        <?php if (!empty($current_photo)): ?>
-
-                            <img
-                                id="photoPreview"
-                                src="<?php
-                                echo htmlspecialchars($current_photo);
-                                ?>"
-                                alt="Profile Photo"
-                                class="rounded-circle"
-                                width="150"
-                                height="150"
-                                style="object-fit: cover;"
-                            >
-
-                        <?php else: ?>
-
-                            <div
-                                id="photoPlaceholder"
-                                class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center mx-auto"
-                                style="width:150px;height:150px;"
-                            >
-
-                                No Photo
-
-                            </div>
-
-
-                            <img
-                                id="photoPreview"
-                                src=""
-                                alt="Photo Preview"
-                                class="rounded-circle d-none"
-                                width="150"
-                                height="150"
-                                style="object-fit: cover;"
-                            >
-
-                        <?php endif; ?>
-
-                    </div>
-
-
-                    <!-- =================================================
-                         FORM
-                    ================================================== -->
-
-                    <form
-                        id="profileForm"
-                        method="POST"
-                        enctype="multipart/form-data"
-                    >
-
-
-                        <!-- NAME -->
-
-                        <div class="mb-3">
-
-                            <label class="form-label">
-                                Name
-                            </label>
-
-
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="name"
-                                name="name"
-                                value="<?php
-                                echo htmlspecialchars($user["name"]);
-                                ?>"
-                            >
-
-
-                            <div
-                                id="nameMessage"
-                                class="mt-1"
-                            ></div>
-
-                        </div>
-
-
-                        <!-- PHONE -->
-
-                        <div class="mb-3">
-
-                            <label class="form-label">
-                                Phone Number
-                            </label>
-
-
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="phone"
-                                name="phone"
-                                maxlength="10"
-                                value="<?php
-                                echo htmlspecialchars($user["phone"]);
-                                ?>"
-                            >
-
-
-                            <div
-                                id="phoneMessage"
-                                class="mt-1"
-                            ></div>
-
-                        </div>
-
-
-                        <!-- ADDRESS -->
-
-                        <div class="mb-3">
-
-                            <label class="form-label">
-                                Address
-                            </label>
-
-
-                            <textarea
-                                class="form-control"
-                                id="address"
-                                name="address"
-                                rows="3"
-                            ><?php
-                            echo htmlspecialchars($user["address"]);
-                            ?></textarea>
-
-
-                            <div
-                                id="addressMessage"
-                                class="mt-1"
-                            ></div>
-
-                        </div>
-
-
-                        <!-- PROFILE PHOTO -->
-
-                        <div class="mb-3">
-
-                            <label class="form-label">
-                                Profile Photo
-                            </label>
-
-
-                            <input
-                                type="file"
-                                class="form-control"
-                                id="profile_photo"
-                                name="profile_photo"
-                                accept=".jpg,.jpeg,.png,.webp"
-                            >
-
-
-                            <div
-                                id="photoMessage"
-                                class="mt-2"
-                            ></div>
-
-                        </div>
-
-
-                        <!-- REMOVE PHOTO -->
-
-                        <?php if (!empty($current_photo)): ?>
-
-                            <div class="mb-3">
-
-                                <button
-                                    type="submit"
-                                    name="remove_photo"
-                                    value="1"
-                                    class="btn btn-outline-danger w-100"
-                                    onclick="return confirm('Are you sure you want to remove your profile photo?');"
-                                >
-
-                                    🗑️ Remove Profile Photo
-
-                                </button>
-
-                            </div>
-
-                        <?php endif; ?>
-
-
-                        <!-- SAVE -->
-
-                        <button
-                            type="submit"
-                            id="saveButton"
-                            class="btn btn-primary w-100"
-                        >
-
-                            Save Changes
-
-                        </button>
-
-
-                        <!-- CANCEL -->
-
-                        <a
-                            href="index.php"
-                            class="btn btn-secondary w-100 mt-2"
-                        >
-
-                            Cancel
-
-                        </a>
-
-
-                    </form>
-
-                </div>
+                <?php echo htmlspecialchars($message); ?>
 
             </div>
 
+        <?php endif; ?>
+
+
+        <!-- Profile Photo -->
+
+        <div class="photo-section">
+
+            <div class="photo-wrapper">
+
+                <?php if (!empty($current_photo)): ?>
+
+                    <img
+                        id="photoPreview"
+                        src="<?php echo htmlspecialchars($current_photo); ?>"
+                        alt="Profile Photo"
+                        class="profile-photo"
+                    >
+
+                <?php else: ?>
+
+                    <div
+                        id="photoPlaceholder"
+                        class="photo-placeholder"
+                    >
+                        <?php echo strtoupper(substr($user["name"], 0, 1)); ?>
+                    </div>
+
+                    <img
+                        id="photoPreview"
+                        src=""
+                        alt="Photo Preview"
+                        class="profile-photo d-none"
+                    >
+
+                <?php endif; ?>
+
+            </div>
+
+            <div class="photo-title">
+                Profile Photo
+            </div>
+
+            <p class="photo-help">
+                JPG, PNG or WEBP · Maximum 5 MB
+            </p>
+
         </div>
+
+
+        <!-- Form -->
+
+        <form
+            id="profileForm"
+            method="POST"
+            enctype="multipart/form-data"
+        >
+
+
+            <div class="form-section-title">
+                <i class="bi bi-person"></i>
+                Personal Information
+            </div>
+
+
+            <!-- NAME -->
+
+            <div class="mb-4">
+
+                <label class="form-label" for="name">
+                    Name
+                </label>
+
+                <div class="input-group">
+
+                    <span class="input-group-text">
+                        <i class="bi bi-person"></i>
+                    </span>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="name"
+                        name="name"
+                        value="<?php echo htmlspecialchars($user["name"]); ?>"
+                        autocomplete="name"
+                    >
+
+                </div>
+
+                <div id="nameMessage" class="validation-message"></div>
+
+            </div>
+
+
+            <!-- PHONE -->
+
+            <div class="mb-4">
+
+                <label class="form-label" for="phone">
+                    Phone Number
+                </label>
+
+                <div class="input-group">
+
+                    <span class="input-group-text">
+                        <i class="bi bi-telephone"></i>
+                    </span>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="phone"
+                        name="phone"
+                        maxlength="10"
+                        value="<?php echo htmlspecialchars($user["phone"]); ?>"
+                        inputmode="numeric"
+                        autocomplete="tel"
+                    >
+
+                </div>
+
+                <div id="phoneMessage" class="validation-message"></div>
+
+            </div>
+
+
+            <!-- ADDRESS -->
+
+            <div class="mb-4">
+
+                <label class="form-label" for="address">
+                    Address
+                </label>
+
+                <div class="input-group">
+
+                    <span class="input-group-text align-items-start pt-3">
+                        <i class="bi bi-geo-alt"></i>
+                    </span>
+
+                    <textarea
+                        class="form-control"
+                        id="address"
+                        name="address"
+                        rows="3"
+                        autocomplete="street-address"
+                    ><?php echo htmlspecialchars($user["address"]); ?></textarea>
+
+                </div>
+
+                <div id="addressMessage" class="validation-message"></div>
+
+            </div>
+
+
+            <!-- PROFILE PHOTO UPLOAD -->
+
+            <div class="mb-3">
+
+                <label class="form-label" for="profile_photo">
+                    Change Profile Photo
+                </label>
+
+                <div class="input-group">
+
+                    <span class="input-group-text">
+                        <i class="bi bi-image"></i>
+                    </span>
+
+                    <input
+                        type="file"
+                        class="form-control"
+                        id="profile_photo"
+                        name="profile_photo"
+                        accept=".jpg,.jpeg,.png,.webp"
+                    >
+
+                </div>
+
+                <div class="upload-help">
+                    Select a new image only if you want to replace the current photo.
+                </div>
+
+                <div id="photoMessage" class="photo-message mt-2"></div>
+
+            </div>
+
+
+            <!-- REMOVE PHOTO -->
+
+            <?php if (!empty($current_photo)): ?>
+
+                <div class="mt-3">
+
+                    <button
+                        type="submit"
+                        name="remove_photo"
+                        value="1"
+                        class="btn btn-outline-danger remove-photo-btn w-100"
+                        onclick="return confirm('Are you sure you want to remove your profile photo?');"
+                    >
+                        <i class="bi bi-trash3 me-1"></i>
+                        Remove Profile Photo
+                    </button>
+
+                </div>
+
+            <?php endif; ?>
+
+
+            <!-- ACTION BUTTONS -->
+
+            <div class="action-area">
+
+                <button
+                    type="submit"
+                    id="saveButton"
+                    class="btn btn-primary save-button w-100"
+                >
+                    <i class="bi bi-check2-circle me-1"></i>
+                    Save Changes
+                </button>
+
+
+                <a
+                    href="index.php"
+                    class="btn cancel-button w-100 mt-2"
+                >
+                    Cancel
+                </a>
+
+            </div>
+
+
+        </form>
 
     </div>
 
 </div>
-
 
 <script>
 
